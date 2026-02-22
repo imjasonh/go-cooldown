@@ -13,12 +13,12 @@ A Go module proxy that filters out versions newer than N days (configurable, def
 
 ## Try it out!
 
-This is hosted (for now) at https://go-cooldown-149343153723.us-east4.run.app/
+This is hosted (for now) at https://cooldown-7577580991.us-east4.run.app/
 
 You can use it by setting your `GOPROXY` to that URL, with a configurable cooldown duration in the path. For example, to use a 30-day cooldown:
 
 ```bash
-GOPROXY=https://go-cooldown-149343153723.us-east4.run.app/30d \
+GOPROXY=https://cooldown-7577580991.us-east4.run.app/30d \
   go get golang.org/x/net@latest
 ```
 
@@ -120,3 +120,11 @@ This proxy helps protect new against supply chain attacks by introducing a confi
 It's also just fun to feel like you're time traveling!
 
 By default, versions must be at least 7 days old before they're served through this proxy.
+
+## Deploying
+
+This is deployed to Cloud Run and built using [`ko`](https://ko.build)
+
+```
+gcloud run deploy cooldown --image=$(ko build ./) --region=us-east4 --allow-unauthenticated
+```
